@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flatdango - Movie Tickets</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Flatdango</h1>
+    </header>
+    <main>
+        <section id="sidebar">
+            <h2>Movies</h2>
+            <ul id="films">
+                <!-- Placeholder item -->
+                <li class="placeholder">Loading movies...</li>
+            </ul>
+        </section>
+        <section id="details">
+            <div id="movie-details">
+                <img id="movie-poster" src="" alt="Movie Poster">
+                <div id="info">
+                    <h2 id="movie-title">Select a Movie</h2>
+                    <p id="runtime"></p>
+                    <p id="showtime"></p>
+                    <p id="description"></p>
+                    <p><strong>Available Tickets:</strong> <span id="available-tickets"></span></p>
+                    <button id="buy-ticket" disabled>Buy Ticket</button>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Flatdango. All rights reserved.</p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
