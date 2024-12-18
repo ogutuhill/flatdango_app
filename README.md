@@ -2,8 +2,6 @@
 Flatdango is an application for Flatiron Movie Theater that allows users to purchase movie tickets conveniently. This project involves building an interactive frontend to 
 display movie details and handle ticket purchasing.
 
-Core Deliverables
-
 ### Features
 
 As a user, you can:
