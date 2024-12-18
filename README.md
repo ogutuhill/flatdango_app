@@ -79,15 +79,6 @@ As a user, you can:
    - Change the "Buy Ticket" button text to "Sold Out" when tickets are unavailable.
    - Add a `sold-out` class to the movie in the `ul#films` list.
 
-### Example
-```html
-<ul id="films">
-  <li class="film item">(Title of film)</li>
-  <li class="sold-out film item">(Title of a sold-out film)</li>
-  <li class="film item">(Title of film)</li>
-</ul>
-```
-
 ## Extra Bonus Deliverables
 
 1. **Persist Tickets Sold**:
