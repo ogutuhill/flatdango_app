@@ -8,21 +8,9 @@ As a user, you can:
 
 1. **View Movie Details**:
    - See the details of the first movie, including its poster, title, runtime, showtime, and available tickets when the page loads.
-   - The number of available tickets is derived as:
-     ```
-     available_tickets = capacity - tickets_sold
-     ```
-   - Endpoint:
-     ```bash
-     GET /films/1
-     ```
 
 2. **View a List of Movies**:
    - A menu displays all movies in the `ul#films` element.
-   - Endpoint:
-     ```bash
-     GET /films
-     ```
 
 3. **Buy Tickets**:
    - Click the "Buy Ticket" button to reduce the number of available tickets.
@@ -82,20 +70,4 @@ As a user, you can:
 ## Extra Bonus Deliverables
 
 1. **Persist Tickets Sold**:
-   - Update the number of `tickets_sold` on the server using:
-     ```bash
-     PATCH /films/:id
-     ```
-   - Request Headers:
-     ```json
-     {
-       "Content-Type": "application/json"
-     }
-     ```
-   - Request Body:
-     ```json
-     {
-       "tickets_sold": 28
-     }
-     ```
-
+   - Update the number of `tickets_sold` on the server.
