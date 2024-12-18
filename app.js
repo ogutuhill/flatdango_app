@@ -7,11 +7,14 @@ const description = document.querySelector("#description");
 const availableTickets = document.querySelector("#available-tickets");
 const buyTicketButton = document.querySelector("#buy-ticket");
 
-const BASE_URL = "http://localhost:3000/films";
+const BASE_URL = "http://localhost:5000/films";
 
-// Fetch all movies and populate the menu
-fetch(`${BASE_URL}`)
-  .then((response) => response.json())
+// Fetch all movies and populate the movie menu
+fetch(BASE_URL) 
+  .then((response) => {
+    if (!response.ok) throw new Error("Network response was not ok");
+    return response.json();
+  })
   .then((movies) => {
     filmsList.innerHTML = ""; // Clear placeholder
     movies.forEach((movie) => {
@@ -24,34 +27,39 @@ fetch(`${BASE_URL}`)
       }
       filmsList.appendChild(li);
     });
-  });
+    // Load the first movie by default
+    if (movies.length > 0) {
+      showMovieDetails(movies[0]);
+    }
+  })
+  .catch((error) => console.error("Error fetching movies:", error));
 
-// Show details for the first movie by default
-fetch(`${BASE_URL}/1`)
-  .then((response) => response.json())
-  .then((movie) => showMovieDetails(movie));
-
-// Function to show movie details
+// Function to display movie details
 function showMovieDetails(movie) {
   poster.src = movie.poster;
   title.textContent = movie.title;
   runtime.textContent = `Runtime: ${movie.runtime} minutes`;
   showtime.textContent = `Showtime: ${movie.showtime}`;
   description.textContent = movie.description;
-  const ticketsAvailable = movie.capacity - movie.tickets_sold;
+
+  let ticketsAvailable = movie.capacity - movie.tickets_sold;
   availableTickets.textContent = ticketsAvailable;
   buyTicketButton.disabled = ticketsAvailable <= 0;
+  buyTicketButton.textContent = ticketsAvailable > 0 ? "Buy Ticket" : "Sold Out";
 
-  // Buy ticket event
+  // Buy ticket functionality
   buyTicketButton.onclick = () => {
     if (ticketsAvailable > 0) {
+      ticketsAvailable--;
       movie.tickets_sold++;
-      availableTickets.textContent = movie.capacity - movie.tickets_sold;
-      if (movie.capacity - movie.tickets_sold <= 0) {
+      availableTickets.textContent = ticketsAvailable;
+
+      if (ticketsAvailable <= 0) {
         buyTicketButton.disabled = true;
         buyTicketButton.textContent = "Sold Out";
-        updateMovieStatus(movie.id, movie.tickets_sold);
       }
+
+      updateMovieStatus(movie.id, movie.tickets_sold);
     }
   };
 }
@@ -64,5 +72,11 @@ function updateMovieStatus(id, ticketsSold) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ tickets_sold: ticketsSold }),
-  });
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to update ticket");
+      return response.json();
+    })
+    .then((data) => console.log("Ticket updated successfully:", data))
+    .catch((error) => console.error("Error updating ticket:", error));
 }
